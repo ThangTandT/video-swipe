@@ -1,7 +1,6 @@
-
-const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
-import VideoPlayer from 'react-native-video-controls';
-import React, { Component, useState, useEffect, useCallback } from 'react';
+const { width: deviceWidth, height: deviceHeight } = Dimensions.get("window");
+import VideoPlayer from "react-native-video-controls";
+import React, { Component, useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -11,13 +10,11 @@ import {
   Animated,
   TouchableOpacity,
   FlatList,
-} from 'react-native';
-import data from './data';
-import { VideoCustom } from './VideoCustom';
+} from "react-native";
+import data from "./data";
+import { VideoCustom } from "./VideoCustom";
+import { usableFullScreenHeight } from "./values";
 let verticalScrollOffset = 0;
-
-
-const windowSize = Dimensions.get('window');
 
 export const FlatListVideo = (props) => {
   // const { song, index } = props;
@@ -35,37 +32,42 @@ export const FlatListVideo = (props) => {
     verticalScrollOffset = 0;
   }, []);
 
-  const onScrollPlayList = useCallback(
-    (ev: any) => {
-      const currentOffset = ev.nativeEvent.contentOffset.y;
-      const position = ev.nativeEvent.contentOffset;
-      const index = Math.round(
-        position.y / windowSize.height,
-      );
-      console.log('playVideoIndex', index);
-      setPlayVideoIndex(index)
+  const onScrollPlayList = (ev: any) => {
+    const currentOffset = ev.nativeEvent.contentOffset.y;
+    const position = ev.nativeEvent.contentOffset;
+    const index = Math.round(position.y / usableFullScreenHeight);
+    console.log("playVideoIndex", playVideoIndex, index);
+    if (index !== playVideoIndex) {
+      setPlayVideoIndex(index);
+    }
 
-      let direction = 'stay';
-      if (currentOffset > verticalScrollOffset) {
-        direction = 'up';
-      } else if (currentOffset < verticalScrollOffset) {
-        direction = 'down';
-      }
-      verticalScrollOffset = currentOffset;
+    let direction = "stay";
+    if (currentOffset > verticalScrollOffset) {
+      direction = "up";
+    } else if (currentOffset < verticalScrollOffset) {
+      direction = "down";
+    }
+    verticalScrollOffset = currentOffset;
 
-      console.log({direction});
-    },[])
-
-  const renderItem = ({item, index}) => {
-    return <VideoCustom paused={playVideoIndex !== index} song={item}/>
-  }
-
-  const loadMoreVerticalItems = () => {
-   
+    console.log({ direction });
   };
 
-  return (<View style={{backgroundColor: 'red'}}>
-     <FlatList
+  const renderItem = ({ item, index }) => {
+    console.log("renderItem ->", index, playVideoIndex);
+    return (
+      <VideoCustom
+        paused={playVideoIndex !== index}
+        song={item}
+        index={index}
+      />
+    );
+  };
+
+  const loadMoreVerticalItems = () => {};
+
+  return (
+    <View style={{ backgroundColor: "red" }}>
+      <FlatList
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
@@ -75,18 +77,19 @@ export const FlatListVideo = (props) => {
         maxToRenderPerBatch={2}
         onMomentumScrollEnd={onScrollPlayList}
         // bounces={false}
-          scrollEventThrottle={16}
-          pagingEnabled
-          removeClippedSubviews={true}
-          // initialNumToRender How many items to render in the initial batch
-          initialNumToRender={1}
-          // maxToRenderPerBatch={1}
-          // initialScrollIndex set to 0 disables the "scroll to top" optimization that keeps items always rendered
-          initialScrollIndex={0}
-          // onEndReachedThreshold - a value of 0.5 will trigger onEndReached when the end of the content is within half the visible length of the list.
-          onEndReachedThreshold={0.5}
-          // onEndReached is called once when the scroll position gets with onEndReachedThreshold of the rendered content
-          onEndReached={loadMoreVerticalItems}
+        scrollEventThrottle={16}
+        pagingEnabled
+        removeClippedSubviews={true}
+        // initialNumToRender How many items to render in the initial batch
+        initialNumToRender={1}
+        // maxToRenderPerBatch={1}
+        // initialScrollIndex set to 0 disables the "scroll to top" optimization that keeps items always rendered
+        initialScrollIndex={0}
+        // onEndReachedThreshold - a value of 0.5 will trigger onEndReached when the end of the content is within half the visible length of the list.
+        onEndReachedThreshold={0.5}
+        // onEndReached is called once when the scroll position gets with onEndReachedThreshold of the rendered content
+        onEndReached={loadMoreVerticalItems}
       />
-  </View>)
-}
+    </View>
+  );
+};

@@ -1,6 +1,6 @@
-const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
-import VideoPlayer from 'react-native-video-controls';
-import React, { Component, useState, useEffect } from 'react';
+const { width: deviceWidth, height: deviceHeight } = Dimensions.get("window");
+import VideoPlayer from "react-native-video-controls";
+import React, { Component, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,24 +9,27 @@ import {
   Image,
   Animated,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
+import { usableFullScreenHeight } from "./values";
 export const VideoCustom = (props) => {
-  const { song, paused } = props;
-
-  return (<VideoPlayer
-    disableVolume={true}
-    source={{ uri: song.media, type: song?.type || 'mp4', }}
-    rate={1.0}
-    volume={0.0}
-    muted={false}
-    paused={paused}
-    resizeMode="cover"
-    repeat
-    style={{ width: deviceWidth, height: deviceHeight}}
-    tapAnywhereToPause={true}
-    disableVolume={true}
-    disableBack={true}
-    disableFullscreen={true}
-  // ignoreSilentSwitch={'ignore'}
-  />)
-}
+  const { song, paused, index } = props;
+  console.log("VideoCustom -> index", index);
+  return (
+    <VideoPlayer
+      disableVolume={true}
+      source={{ uri: song.media }}
+      rate={1.0}
+      volume={0.0}
+      muted={false}
+      paused={paused}
+      resizeMode="cover"
+      repeat
+      style={{ width: deviceWidth, height: usableFullScreenHeight }}
+      tapAnywhereToPause={true}
+      disableBack={true}
+      disableFullscreen={true}
+      onError={(error) => console.log("index -> error", index, error)}
+      // ignoreSilentSwitch={'ignore'}
+    />
+  );
+};
