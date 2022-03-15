@@ -16,6 +16,9 @@ import data from './data';
 import { VideoCustom } from './VideoCustom';
 let verticalScrollOffset = 0;
 
+
+const windowSize = Dimensions.get('window');
+
 export const FlatListVideo = (props) => {
   // const { song, index } = props;
   // const [play, setPlay] = useState(false);
@@ -25,12 +28,23 @@ export const FlatListVideo = (props) => {
   //     setPlay(true)
   //   // }, 500);
   // }, [])
+
+  const [playVideoIndex, setPlayVideoIndex] = useState(0);
+
   useEffect(() => {
     verticalScrollOffset = 0;
   }, []);
+
   const onScrollPlayList = useCallback(
     (ev: any) => {
       const currentOffset = ev.nativeEvent.contentOffset.y;
+      const position = ev.nativeEvent.contentOffset;
+      const index = Math.round(
+        position.y / windowSize.height,
+      );
+      console.log('playVideoIndex', index);
+      setPlayVideoIndex(index)
+
       let direction = 'stay';
       if (currentOffset > verticalScrollOffset) {
         direction = 'up';
@@ -41,19 +55,21 @@ export const FlatListVideo = (props) => {
 
       console.log({direction});
     },[])
+
   const renderItem = ({item, index}) => {
-    return   <VideoCustom song={item} index={index}/>
+    return <VideoCustom paused={playVideoIndex !== index} song={item}/>
   }
+
   const loadMoreVerticalItems = () => {
    
   };
-  return (<View>
+
+  return (<View style={{backgroundColor: 'red'}}>
      <FlatList
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={data}
-        maxToRenderPerBatch={1}
         bounces={false}
         // scrollEnabled={false}
         maxToRenderPerBatch={2}

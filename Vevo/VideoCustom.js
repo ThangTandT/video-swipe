@@ -11,21 +11,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 export const VideoCustom = (props) => {
-  console.log('VideoCustom',{index});
-  const { song, index } = props;
-  const [play, setPlay] = useState(false);
-  useEffect(() => {
-    // setTimeout(() => {
-      setPlay(true)
-    // }, 500);
-  }, [])
+  const { song, paused } = props;
+
   return (<VideoPlayer
     disableVolume={true}
     source={{ uri: song.media, type: song?.type || 'mp4', }}
     rate={1.0}
     volume={0.0}
     muted={false}
-    paused={play}
+    paused={paused}
     resizeMode="cover"
     repeat
     style={{ width: deviceWidth, height: deviceHeight}}
