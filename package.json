@@ -11,6 +11,8 @@
     "cleanA": "cd android && ./gradlew clean"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^14.7.0",
+    "@react-native-firebase/storage": "^14.7.0",
     "@types/lodash": "^4.14.178",
     "@types/react-native-loading-spinner-overlay": "^0.5.3",
     "@types/react-native-snap-carousel": "^3.8.5",
@@ -18,20 +20,25 @@
     "lodash": "^4.17.21",
     "react": "17.0.2",
     "react-native": "0.67.2",
+    "react-native-background-upload": "^6.5.1",
     "react-native-blur": "^3.2.2",
+    "react-native-fetch-blob": "^0.10.8",
+    "react-native-image-picker": "^4.7.3",
     "react-native-loading-spinner-overlay": "^3.0.0",
     "react-native-parallax-swiper": "^1.1.7",
+    "react-native-permissions": "^3.3.1",
     "react-native-safe-area-context": "^3.4.0",
     "react-native-snap-carousel": "^3.9.1",
-    "react-native-video": "^5.2.0",
-    "react-native-video-controls": "^2.8.1"
+    "react-native-video": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.23",
+    "@types/react": "^17.0.43",
     "@types/react-native": "^0.66.15",
+    "@types/react-native-fetch-blob": "^0.10.7",
     "@types/react-test-renderer": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",

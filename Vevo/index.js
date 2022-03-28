@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   View,
   Text,
@@ -7,25 +7,22 @@ import {
   Image,
   Animated,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
 
 import {
   ParallaxSwiper,
   ParallaxSwiperPage,
-} from 'react-native-parallax-swiper';
-import Video from 'react-native-video';
-import { BlurView } from 'react-native-blur';
-import VideoPlayer from 'react-native-video-controls';
+} from "react-native-parallax-swiper";
 
-import data from './data';
-import { VideoCustom } from './VideoCustom';
+import data from "./data";
+import { VideoCustom } from "./VideoCustom";
 
-const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window');
+const { width: deviceWidth, height: deviceHeight } = Dimensions.get("window");
 
-const homeIcon = require('./assets/home.png');
-const searchIcon = require('./assets/search.png');
-const messagesIcon = require('./assets/messages.png');
-const profileIcon = require('./assets/profile.png');
+const homeIcon = require("./assets/home.png");
+const searchIcon = require("./assets/search.png");
+const messagesIcon = require("./assets/messages.png");
+const profileIcon = require("./assets/profile.png");
 
 export default class extends Component {
   componentDidMount() {
@@ -78,9 +75,7 @@ export default class extends Component {
   songLikesAnim8Val = data.map(() => new Animated.Value(0));
 
   previousPageIndex = null;
-  onPressPlay = (song, i) => {
-
-  }
+  onPressPlay = (song, i) => {};
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -93,12 +88,12 @@ export default class extends Component {
             }}
             animatedValue={this.myCustomAnimatedVal}
           >
-            {data.map((song, i) =>
-              (<ParallaxSwiperPage
+            {data.map((song, i) => (
+              <ParallaxSwiperPage
                 key={song.id}
                 BackgroundComponent={
                   <View>
-                    <VideoCustom song={song} index ={i}/>
+                    <VideoCustom song={song} index={i} />
                     {/* <VideoPlayer
     disableVolume={true}
     source={{ uri: song.media, type: song?.type || 'mp4', }}
@@ -198,7 +193,7 @@ export default class extends Component {
                 //           ],
                 //         }}
                 //         source={require('./assets/play.png')}
-                //       /> 
+                //       />
                 //       </TouchableOpacity>
                 //       <Animated.View
                 //         style={{
@@ -295,16 +290,16 @@ export default class extends Component {
                 //     </View>
                 //   </Animated.View>
                 // }
-              />),
-            )}
+              />
+            ))}
           </ParallaxSwiper>
         </View>
         <View
-          style={{ flexDirection: 'row', height: 50, backgroundColor: 'black' }}
+          style={{ flexDirection: "row", height: 50, backgroundColor: "black" }}
         >
           <View style={styles.tabBarIconContainer}>
             <Image
-              style={[styles.tabBarIcon, { tintColor: 'white' }]}
+              style={[styles.tabBarIcon, { tintColor: "white" }]}
               source={homeIcon}
             />
           </View>
@@ -326,10 +321,10 @@ export default class extends Component {
 const styles = StyleSheet.create({
   tabBarIconContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   tabBarIcon: {
-    tintColor: '#999',
+    tintColor: "#999",
   },
 });
